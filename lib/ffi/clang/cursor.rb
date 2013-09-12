@@ -1,16 +1,16 @@
 # Copyright, 2010-2012 by Jari Bakken.
 # Copyright, 2013, by Samuel G. D. Williams. <http://www.codeotaku.com>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -110,6 +110,46 @@ module FFI
 			def result_type
 				Type.new Lib.get_cursor_result_type(@cursor)
 			end
+
+      def virtual_base?
+        Lib.is_virtual_base(@cursor) != 0
+      end
+
+      def dynamic_call?
+        Lib.is_dynamic_call(@cursor) != 0
+      end
+
+      def static?
+        Lib.cxx_method_is_static(@cursor) != 0
+      end
+
+      def virtual?
+        Lib.cxx_method_is_virtual(@cursor) != 0
+      end
+
+      def pure_virtual?
+        Lib.cxx_method_is_pure_virtual(@cursor) != 0
+      end
+
+      def enum_value
+        Lib.get_enum_value @cursor
+      end
+
+      def specialized_template
+        Cursor.new Lib.get_specialized_cursor_template @cursor
+      end
+
+      def template_kind
+        Lib.get_template_cursor_kind @cursor
+      end
+
+      def access_specifier
+        Lib.get_cxx_access_specifier @cursor
+      end
+
+      def language
+        Lib.get_language @cursor
+      end
 
 			def visit_children(&block)
 				adapter = Proc.new do | cxcursor, parent_cursor, unused |
