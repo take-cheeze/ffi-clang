@@ -25,6 +25,14 @@ module FFI
 				Lib.get_num_arg_types(@type)
 			end
 
+      def canonical
+        Type.new Lib.get_canonical_type(@type)
+      end
+
+      def const_qualified?
+        Lib.is_const_qualified_type(@type) != 0
+      end
+
 			def arg_type(i)
 				Type.new Lib.get_arg_type(@type, i)
 			end
