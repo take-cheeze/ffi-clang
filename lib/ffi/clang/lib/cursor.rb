@@ -83,7 +83,7 @@ module FFI
       attach_function :cxx_method_is_pure_virtual, :clang_CXXMethod_isPureVirtual, [CXCursor.by_value], :uint
 
       enum :language_kind, [:invalid, :c, :obj_c, :c_plus_plus]
-      attach_function :get_languge, :clang_getCursorLanguage, [CXCursor.by_value], :language_kind
+      attach_function :get_language, :clang_getCursorLanguage, [CXCursor.by_value], :language_kind
 
       attach_function :get_canonical_cursor, :clang_getCanonicalCursor, [CXCursor.by_value], CXCursor.by_value
       attach_function :get_cursor_definition, :clang_getCursorDefinition, [CXCursor.by_value], CXCursor.by_value
